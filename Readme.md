@@ -1,8 +1,8 @@
 # Java Programming Course
-Java the complete developer course
+Java The Complete Developer Course
 
 ## Tutor
 Tim Buchalka
 
 ## Duration
-80h 20m total length
+80h 20m Total Length
