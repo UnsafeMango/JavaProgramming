@@ -3,12 +3,19 @@ package com.company;
 import java.util.ArrayList;
 // ArrayList is actually a class
 public class GroceryList {
-    private ArrayList<String> groceryList = new ArrayList<String>();
+    private ArrayList<String> groceryList = new ArrayList<String>(); //how to add an array list
 
     public void addGroceryItem(String item) {
         groceryList.add(item); //automatically adds the item to the array list
     }
+    //*****************************************************************************
+    //other ways to access an array list
 
+    public ArrayList<String> getGroceryList() {
+        return groceryList;
+    }
+
+    //*****************************************************************************
     public void printGroceryList() {
         //.size() tells you the number of items in your array
         System.out.println("You have "+ groceryList.size() + " items in your grocery list");
@@ -23,7 +30,6 @@ public class GroceryList {
             modifyGroceryItem(position, newItem);
         }
     }
-
     private void modifyGroceryItem(int position, String newItem) {
         groceryList.set(position, newItem);
         System.out.println("GroceryItem " + (position+1) + " has been modified");
@@ -40,7 +46,7 @@ public class GroceryList {
         groceryList.remove(position);
     }
 
-    public int findItem(String searchItem) {
+    private int findItem(String searchItem) {
 //        boolean exists = groceryList.contains(searchItem); // .contains checks the list and returns true if
         // search item is found
 
@@ -51,6 +57,14 @@ public class GroceryList {
 //            return groceryList.get(position);
 //        }
 //        return null;
+    }
+
+    public boolean unFile(String searchItem) {
+        int position = findItem(searchItem);
+        if (position >= 0) {
+            return true;
+        }
+        return false;
     }
 }
 
