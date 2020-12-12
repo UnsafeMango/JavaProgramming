@@ -13,14 +13,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Created by timbuchalka on 20/04/2016.
+ */
 public class TodoData {
     private static TodoData instance = new TodoData();
-    private static String fileName = "TodoListItems.txt";
+    private static String filename = "TodoListItems.txt";
 
-        private List<TodoItem> todoItems;
+    private List<TodoItem> todoItems;
     private DateTimeFormatter formatter;
 
-    public static TodoData getInstance(){
+    public static TodoData getInstance() {
         return instance;
     }
 
@@ -32,13 +35,19 @@ public class TodoData {
         return todoItems;
     }
 
+    public void addTodoItem(TodoItem item) {
+        todoItems.add(item);
+    }
+
     public void loadTodoItems() throws IOException {
+
         todoItems = FXCollections.observableArrayList();
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(filename);
         BufferedReader br = Files.newBufferedReader(path);
 
         String input;
-        try{
+
+        try {
             while ((input = br.readLine()) != null) {
                 String[] itemPieces = input.split("\t");
 
@@ -50,29 +59,34 @@ public class TodoData {
                 TodoItem todoItem = new TodoItem(shortDescription, details, date);
                 todoItems.add(todoItem);
             }
+
         } finally {
-            if (br != null) {
+            if(br != null) {
                 br.close();
             }
         }
     }
 
     public void storeTodoItems() throws IOException {
-        Path path = Paths.get(fileName);
-        BufferedWriter bw = Files.newBufferedWriter(path);
 
+        Path path = Paths.get(filename);
+        BufferedWriter bw = Files.newBufferedWriter(path);
         try {
             Iterator<TodoItem> iter = todoItems.iterator();
-            while (iter.hasNext()) {
+            while(iter.hasNext()) {
                 TodoItem item = iter.next();
-                bw.write(String.format("%s\t%s\t%s", item.getShortDescription(),
-                        item.getDetails(), item.getDeadLine().format(formatter)));
+                bw.write(String.format("%s\t%s\t%s",
+                        item.getShortDescription(),
+                        item.getDetails(),
+                        item.getDeadline().format(formatter)));
                 bw.newLine();
             }
+
         } finally {
-            if (bw != null){
+            if(bw != null) {
                 bw.close();
             }
         }
     }
+
 }

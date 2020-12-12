@@ -3,3 +3,6 @@ Doctor's appointment	See doctor Smith at 123 Main Street	23-03-2020
 Finish design proposal for client	I promised Mike I'd email website by Friday 22nd April	03-04-2020
 Pick up Doug at train station	Doug is arriving on March 23 on the 5:00 train	01-01-2020
 Pick up dry cleaning	Clothes should be ready by wednesday	20-04-2020
+My new Todo Item	This is a new todo item	11-12-2020
+New Item	This is a test!!	24-12-2020
+Yet another new addition	Trying to make it longer	31-12-2020
