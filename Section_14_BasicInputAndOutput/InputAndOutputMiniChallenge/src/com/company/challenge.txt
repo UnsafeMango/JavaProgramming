@@ -1,0 +1,1 @@
+Rewrite the static initialization block in the Locations Class.

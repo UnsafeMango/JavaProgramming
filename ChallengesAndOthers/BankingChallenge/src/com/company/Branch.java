@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Branch {
 
     private String name;
-    private ArrayList<Customer> customers = new ArrayList<Customer>();
+    private ArrayList<Customer> customers;
 
-    public Branch(String branchName) {
-        this.name = branchName;
+    public Branch(String name) {
+        this.name = name;
         this.customers = new ArrayList<Customer>();
     }
 
@@ -16,56 +16,35 @@ public class Branch {
         return name;
     }
 
-    public ArrayList<Customer> getCustomers() {  // MAY NOT NEED
+    public ArrayList<Customer> getCustomers() {
         return customers;
     }
 
-    public boolean newCustomer(String customerName, double firstDeposite) {
-
-        Customer foundCustomer = findCustomer(customerName);
-        if (foundCustomer == null) {
-            this.customers.add(new Customer(customerName, firstDeposite));
-            return true;
-        } else {
-//            System.out.println("The customer " + customerName
-//                    + " already exists, and so the new customer has not been added.");
-            return false;
-        }
-    }
-
-    public boolean addCustomerTransaction(String customerName, double transaction) {
-
-        Customer foundCustomer = findCustomer(customerName);
-        if (foundCustomer == null) {
-//            System.out.println("The customer " + customerName
-//                    + " was not found in this branch.");
-            return false;
-        } else {
-            foundCustomer.addTransaction(transaction);
+    public boolean newCustomer(String name, double initialTransaction) {
+        if (findCustomer(name) == null) {
+            Customer newCustomer = new Customer(name, initialTransaction);
+            this.customers.add(newCustomer);
             return true;
         }
+        return false;
     }
 
-    private Customer findCustomer(String customerName) {
-        for(int i = 0; i < this.customers.size(); i++) {
-            Customer foundCustomer = this.customers.get(i);
-            if(foundCustomer.getName().equals(customerName)) {
-                return foundCustomer;
+    public boolean addCustomerTransaction(String name, double transaction) {
+        Customer customer = findCustomer(name);
+        if (customer != null) {
+            customer.addTransaction(transaction);
+            return true;
+        }
+        return false;
+    }
+
+    private Customer findCustomer(String name) {
+        for (Customer customer : this.customers) {
+            String searchName = customer.getName();
+            if (name.equals(searchName)) {
+                return customer;
             }
         }
         return null;
-    }
-
-    public void listCustomers(boolean listTransactions) {
-        if (this.customers.size() > 0) {
-            for (int i = 0; i < customers.size(); i++) {
-                System.out.println("Customer: " + customers.get(i).getName() + "[" + (i + 1) + "]");
-                if (listTransactions) {
-                    customers.get(i).listTransactions();
-                }
-            }
-        } else {
-//            System.out.println("There are currently no customers for this branch.");
-        }
     }
 }
